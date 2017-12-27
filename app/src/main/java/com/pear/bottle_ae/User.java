@@ -5,30 +5,31 @@ package com.pear.bottle_ae;
  */
 
 public class User {
-    private detail detail;
     private String status;
 
     public String getStatus() {
         return status;
     }
+        private data data;
 
-    public User.detail getDetail() {
-        return detail;
+
+    public User.data getData() {
+        return data;
     }
 
-    public static class detail{
+    public static class data {
         private int user_id;
-        private String pwd;
         private String username;
         private String nickname;
         private String gender;
 
-        public String getPwd() {
-            return pwd;
+        public int getUser_id() {
+            return user_id;
         }
 
-        public int getUser_id() { return  user_id;}
-
+        public String getUsername() {
+            return username;
+        }
 
         public String getGender() {
             return gender;
@@ -36,27 +37,6 @@ public class User {
 
         public String getNickname() {
             return nickname;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
-
-        public void setUser_id(int user_id) {
-            this.user_id = user_id;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
         }
     }
 }
