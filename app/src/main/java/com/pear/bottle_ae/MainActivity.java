@@ -12,10 +12,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.HttpException;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -29,66 +51,20 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private Button load_button , register_button;
     private EditText load_name,load_pwd,register_name,register_nickname,register_pwd,register_con_pwd;
+    private RadioGroup radioGroup;
     private String url =" https://bottle.resetbypear.com/api/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Retrofit retrofit = Factory.createRetrofit(url);
+        final Retrofit retrofit = Factory.createRetrofit(url , MainActivity.this);
         final Services services = retrofit.create(Services.class);
         layoutInflater = LayoutInflater.from(this);
         pager = (ViewPager) findViewById(R.id.page);
         init();
-        load_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = load_name.getText().toString();
-                final String pwd = load_pwd.getText().toString();
-                if (name.isEmpty()) {
-                    load_name.setError("请输入用户名");
-                } else if (pwd.isEmpty()) {
-                    load_pwd.setError("请输入密码");
-                } else {
-                    services.getUser(name)
-                            .subscribeOn(Schedulers.newThread())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Subscriber<User>() {
-                                @Override
-                                public void onCompleted() {
-
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    Log.i("yes" , e.toString());
-                                }
-
-                                @Override
-                                public void onNext(User user) {
-                                    Log.i("yes" , "yes");
-                                    String status = user.getStatus();
-                                    if (status.equals("OK")) {
-                                        User.detail detail = user.getDetail();
-                                        if (detail.getPwd().equals(pwd)) {
-
-                                        } else {
-                                            load_pwd.setError("请输入正确的用户名");
-                                        }
-                                    } else {
-                                        load_name.setError("用户名不存在");
-                                    }
-                                }
-                            });
-                    //
-                }
-            }
-        });
-        register_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        load_button.setOnClickListener(loadOnclickListener(services));
+        register_button.setOnClickListener(registerOnclickListener(services));
 
 
     }
@@ -103,9 +79,7 @@ public class MainActivity extends AppCompatActivity {
         register_pwd = view_register.findViewById(R.id.register_pwd_edit);
         register_con_pwd = view_register.findViewById(R.id.register_con_pwd_edit);
         register_nickname = view_register.findViewById(R.id.register_nickname_edit);
-
-
-
+        radioGroup = view_register.findViewById(R.id.buttons);
         arrayList.add(view_load);
         arrayList.add(view_register);
         list_titles.add("登录");
@@ -150,5 +124,122 @@ public class MainActivity extends AppCompatActivity {
             return list_titles.get(position);//页卡标题
         }
 
+    }
+    private View.OnClickListener registerOnclickListener(final Services services) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int buttonId = radioGroup.getCheckedRadioButtonId();
+                String username = register_name.getText().toString()+"";
+                String nickname = register_nickname.getText().toString();
+                String pwd = register_pwd.getText().toString();
+                String con_pwd = register_con_pwd.getText().toString();
+                if (username.isEmpty()) {
+                    register_name.setError("用户名不能为空");
+                } else if (nickname.isEmpty()) {
+                    register_nickname.setError("昵称不能为空");
+                } else if (pwd.isEmpty()) {
+                    register_pwd.setError("密码不能为空");
+                } else if (con_pwd.isEmpty()) {
+                    register_con_pwd.setError("确认密码不能为空");
+                } else if (buttonId == -1){
+                    TextView radioButton = view_register.findViewById(R.id.sex);
+                    radioButton.setError("请选择性别");
+                } else {
+                    if (con_pwd.equals(pwd)) {
+                        RadioButton radioButton = view_register.findViewById(radioGroup.getCheckedRadioButtonId());
+                        String gender = radioButton.getText().toString();
+                        Map<String , String > map = new HashMap<>();
+                        map.put("username" , username);
+                        map.put("nickname" , nickname);
+                        map.put("password" , pwd);
+                        RegisterUser registerUser = new RegisterUser();
+                        registerUser.setNickname(nickname);
+                        registerUser.setPwd(pwd);
+                        registerUser.setUsername(username);
+                        if (gender.equals("男")) {
+                            registerUser.setGender("male");
+                            map.put("gender" , "male");
+                        } else {
+                            registerUser.setGender("female");
+                            map.put("gender" , "female");
+                        }
+                        Log.i("before" , "aaa");
+                        Gson gson=new Gson();
+                        String strEntity = gson.toJson(map);
+                        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+                        services.postUser(body)
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Subscriber<User>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        HttpException exception = (HttpException) e;
+                                        if (exception.response().code() == 409) {
+                                            register_name.setError("用户名已存在");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNext(User user) {
+                                        Log.i("error",user.getStatus());
+                                    }
+                                });
+                    } else {
+                        register_con_pwd.setError("请输入和密码一致的确认密码");
+                    }
+                }
+            }
+        };
+    }
+    private View.OnClickListener loadOnclickListener(final Services services) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = load_name.getText().toString();
+                final String pwd = load_pwd.getText().toString();
+                if (name.isEmpty()) {
+
+                    load_name.setError("请输入用户名");
+                } else if (pwd.isEmpty()) {
+                    load_pwd.setError("请输入密码");
+                } else {
+                    Map<String , String > map = new HashMap<>();
+                    map.put("username" , name);
+                    map.put("password" , pwd);
+                    Gson gson=new Gson();
+                    String strEntity = gson.toJson(map);
+                    RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+                    services.loadUser(body)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<User>() {
+                                @Override
+                                public void onCompleted() {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    HttpException exception = (HttpException) e;
+                                    if (exception.response().code() == 403) {
+                                        load_name.setError("用户名或密码错误");
+                                        Log.i("errorcode" , "403");
+                                    }
+                                }
+
+                                @Override
+                                public void onNext(User user) {
+                                }
+                            });
+
+                }
+            }
+        };
     }
 }
