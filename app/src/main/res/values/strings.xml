@@ -1,3 +1,13 @@
-<resources>
-    <string name="app_name">Bottle-ae</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">漂流瓶</string>
+    <string name="username">&#160;&#160;&#160;&#160;用户名：</string>
+    <string name="pwd">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;密码：</string>
+    <string name="con_pwd">确认密码：</string>
+    <string name="nickname">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;昵称：</string>
+    <string name="load">确认登录</string>
+    <string name="register">注册</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="sex">性别：</string>
 </resources>
