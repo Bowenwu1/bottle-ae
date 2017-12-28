@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Bottle-ae</string>
+    <string name="title_activity_main1">MainActivity1</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
