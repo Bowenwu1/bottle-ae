@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText load_name,load_pwd,register_name,register_nickname,register_pwd,register_con_pwd;
     private RadioGroup radioGroup;
     private String url =" https://bottle.resetbypear.com/api/";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
     public void init() {
         view_load = layoutInflater.inflate(R.layout.load,null);
         view_register = layoutInflater.inflate(R.layout.register , null);
@@ -243,3 +241,4 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 }
+
