@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/personal_page"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/person_dark"
         android:title="个人主页"
         />
     <item
         android:id="@+id/bottle"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/bottle"
         android:title="漂流瓶"
         />
     <item
         android:id="@+id/home_page"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/mainpage_dark"
         android:title="主页"/>
 </menu>

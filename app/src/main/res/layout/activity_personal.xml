@@ -14,7 +14,7 @@
             android:id="@+id/personal_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/man" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,6 +48,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginBottom="0dp"
         android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -56,9 +57,9 @@
         <ImageView
             android:id="@+id/pic1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/pickup_bottle" />
 
         <TextView
             android:id="@+id/text1"
@@ -72,7 +73,7 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:src="@mipmap/ic_launcher" />
     </LinearLayout>
@@ -91,9 +92,9 @@
         <ImageView
             android:id="@+id/pic"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/throw_bottle" />
 
         <TextView
             android:id="@+id/text"
