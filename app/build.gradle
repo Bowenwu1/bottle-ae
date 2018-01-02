@@ -41,4 +41,7 @@ dependencies {
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
 }

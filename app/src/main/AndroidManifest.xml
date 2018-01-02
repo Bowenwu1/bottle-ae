@@ -14,13 +14,20 @@
             android:value="04f7fbc5bd5982966412292edae07db9"/>
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".PersonalActivity" />
         <activity android:name=".MainActivity1"></activity>
+        <activity android:name=".Map.MapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
     
     //地图包、搜索包需要的基础权限
