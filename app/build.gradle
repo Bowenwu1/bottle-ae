@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -39,4 +40,5 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    compile 'com.android.support:multidex:1.0.1'
 }
