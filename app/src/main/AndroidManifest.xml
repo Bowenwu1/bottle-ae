@@ -13,15 +13,11 @@
             android:name="com.amap.api.v2.apikey"
             android:value="04f7fbc5bd5982966412292edae07db9"/>
         <activity android:name=".MainActivity">
-            <intent-filter>
 
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PersonalActivity" />
         <activity android:name=".MainActivity1"></activity>
-        <activity android:name=".Map.MapActivity">
+        <activity android:name=".MapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
