@@ -69,11 +69,11 @@ public class BottleActivity extends AppCompatActivity {
                 for (int i = 0; i < bottles.size(); i++) {
                     Bottle b = bottles.get(i);
                     Map<String, Object> temp = new LinkedHashMap<>();
-//                    temp.put("location", b.location);
-//                    temp.put("type", b.style);
-//                    temp.put("time", b.created_at);
-//                    temp.put("content",b.content);
-//                    temp.put("readcount",b.openers_count);
+                    temp.put("location", b.location);
+                    temp.put("type", b.style);
+                    temp.put("time", b.created_at);
+                    temp.put("content",b.content);
+                    temp.put("readcount",b.openers_count);
                     data.add(temp);
                 }
             }
