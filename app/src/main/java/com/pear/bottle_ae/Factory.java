@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Factory {
+    private final static String BASE_URL = "https://bottle.resetbypear.com/api/";
 
     public   static OkHttpClient createOkhttp(Context context) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -44,5 +45,10 @@ public class Factory {
                 .client(createOkhttp(context))
                 .build();
 
+    }
+
+    public static Services getServices(Context context) {
+        Retrofit retrofit = createRetrofit(BASE_URL, context);
+        return retrofit.create(Services.class);
     }
 }

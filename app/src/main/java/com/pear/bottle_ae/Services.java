@@ -32,9 +32,19 @@ public interface Services {
 
     /**
      * Added by Bowen Wu in 2018/01/04
+     * Used when create bottle
      */
     @Headers({"Content-type:application/json","Accept: application/json"})
     @POST("bottles")
-    Observable<Bottle> postBottle(@Body RequestBody route);
+    Observable<ResponseBottle> postBottle(@Body RequestBody route);
+
+    /**
+     * Added by Bowen Wu in 2018/01/04
+     * Used when get nearby bottle
+     */
+    @Headers({"Content-type:application/json","Accept: application/json"})
+    @GET("/bottles/nearby/?latitude={latitude}&longitude={longitude}&latitude_span={latitude_span}&longitude_span={longitude_span}")
+    Observable<ResponseBottlesList> getNearbyBottle(@Path("latitude") double latitude, @Path("longitude") double longitude,
+                                                    @Path("latitude_span") double latitude_span, @Path("longitude_span") double longitude_span);
 
 }
