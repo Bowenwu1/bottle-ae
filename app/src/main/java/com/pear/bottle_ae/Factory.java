@@ -39,7 +39,6 @@ public class Factory {
         return okHttpClient;
     }
     public  static Retrofit createRetrofit(String baseUrl , Context context) {
-        baseUrl = url;
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())

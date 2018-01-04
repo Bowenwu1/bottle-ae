@@ -23,7 +23,7 @@ public class Bottle {
     public int style;
     public BottleLocation location;
 
-    public Bottle(String content, int style, float latitude, float longitude) {
+    public Bottle(String content, int style, double latitude, double longitude, String formatted_address) {
         this.Content = content;
         switch (style) {
             case STYLE_NORMAL:
@@ -39,8 +39,7 @@ public class Bottle {
                 this.style = STYLE_NORMAL;
         }
 
-        location.latitude = latitude;
-        location.longitude = longitude;
+        location = new BottleLocation(latitude, longitude, formatted_address);
     }
 
 

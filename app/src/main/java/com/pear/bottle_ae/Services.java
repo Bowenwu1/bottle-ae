@@ -49,7 +49,6 @@ public interface Services {
                                                     @Path("latitude_span") double latitude_span, @Path("longitude_span") double longitude_span);
 
 
-    Observable<Bottle> postBottle(@Body RequestBody route);
     /**
      * Added by Young in 2018/01/04
      */
