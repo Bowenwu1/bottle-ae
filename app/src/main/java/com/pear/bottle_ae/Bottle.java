@@ -7,6 +7,7 @@ import android.location.Location;
  */
 
 public class Bottle {
+
     // 普通瓶子
     public final static int STYLE_NORMAL    = 1;
     // VIP扔的瓶子
@@ -41,6 +42,7 @@ public class Bottle {
         location.latitude = latitude;
         location.longitude = longitude;
     }
+
 
     public boolean whetherInArea(Location myLocation) {
         double distanceLongitude = Math.abs(myLocation.getLongitude() - this.location.longitude);
