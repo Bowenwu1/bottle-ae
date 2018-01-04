@@ -15,7 +15,7 @@ public class Bottle {
     // 穷逼VIP，充话费送的那种
     public final static int STYLE_POOR_VIP  = 3;
 
-    public final static double SPAN_LONGITITUDE = 0.076545;
+    public final static double SPAN_LONGITUDE = 0.076545;
     public final static double SPAN_LATITUDE    = 0.054567;
 
     public int bottle_id;
@@ -47,6 +47,6 @@ public class Bottle {
     public boolean whetherInArea(Location myLocation) {
         double distanceLongitude = Math.abs(myLocation.getLongitude() - this.location.longitude);
         double distanceLatitude  = Math.abs(myLocation.getLatitude() - this.location.latitude);
-        return (distanceLatitude <= SPAN_LATITUDE) && (distanceLongitude <= SPAN_LONGITITUDE);
+        return (distanceLatitude <= SPAN_LATITUDE) && (distanceLongitude <= SPAN_LONGITUDE);
     }
 }
