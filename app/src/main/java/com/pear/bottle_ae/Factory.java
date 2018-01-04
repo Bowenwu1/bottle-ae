@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Factory {
     private final static String BASE_URL = "https://bottle.resetbypear.com/api/";
-
+    private static Services servicesInstance = null;
     public   static OkHttpClient createOkhttp(Context context) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -48,7 +48,10 @@ public class Factory {
     }
 
     public static Services getServices(Context context) {
-        Retrofit retrofit = createRetrofit(BASE_URL, context);
-        return retrofit.create(Services.class);
+        if (null == servicesInstance) {
+            Retrofit retrofit = createRetrofit(BASE_URL, context);
+            servicesInstance = retrofit.create(Services.class);
+        }
+       return servicesInstance;
     }
 }

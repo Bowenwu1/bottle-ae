@@ -1,5 +1,6 @@
 package com.pear.bottle_ae;
 
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,6 +30,7 @@ public class MapActivity extends AppCompatActivity {
     private UiSettings uiSettings;
     private FloatingActionButton add_bottle_button;
     private View dialogView;
+    private String formatted_address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +74,20 @@ public class MapActivity extends AppCompatActivity {
                 // 弹出对话框
                 LayoutInflater layoutInflater = LayoutInflater.from(MapActivity.this);
                 View dialog = layoutInflater.inflate(R.layout.add_bottle_dialog, null);
-                TextInputEditText bottleContent = (TextInputEditText)dialog.findViewById(R.id.bottle_content);
-                RadioGroup bottleType = (RadioGroup)dialog.findViewById(R.id.bottle_type);
+                final TextInputEditText bottleContent = (TextInputEditText)dialog.findViewById(R.id.bottle_content);
+                // RadioGroup的交互可以提升，后续有时间的话做
+                final RadioGroup bottleType = (RadioGroup)dialog.findViewById(R.id.bottle_type);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
                 builder.setView(dialog);
                 builder.setNegativeButton(R.string.cancle, null);
-                builder.setPositiveButton(R.string.send_bottle, null);
+                builder.setPositiveButton(R.string.send_bottle, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int checkedRadioButtonID = bottleType.getCheckedRadioButtonId();
+                        String content = bottleContent.getText().toString();
+
+                    }
+                });
                 builder.show();
             }
         });
