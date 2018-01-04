@@ -16,30 +16,9 @@ import java.util.Map;
  */
 
 public class PersonalActivity extends AppCompatActivity {
-    private LinearLayout layout1, layout2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
-        layout1 = (LinearLayout)findViewById(R.id.layout1);
-        layout2 = (LinearLayout)findViewById(R.id.layout2);
-        layout1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(PersonalActivity.this,BottleActivity.class);
-                intent.putExtra("isPick", true);
-                startActivity(intent);
-            }
-        });
-        layout2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(PersonalActivity.this,BottleActivity.class);
-                intent.putExtra("isPick", false);
-                startActivity(intent);
-            }
-        });
     }
 }

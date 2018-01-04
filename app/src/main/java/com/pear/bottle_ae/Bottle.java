@@ -5,8 +5,10 @@ package com.pear.bottle_ae;
  */
 
 public class Bottle {
-    public String Content;
+    public String content;
     public int style;
+    public int openers_count;
+    public String created_at;
 
     public static class BottleLocation {
         public String formatted_address;
@@ -16,9 +18,9 @@ public class Bottle {
     public Bottle.BottleLocation location;
 
     // 普通瓶子
-    public static int STYLE_NORMAL    = 1;
+    public static int STYLE_NORMAL    = 0;
     // VIP扔的瓶子
-    public static int STYLE_VIP       = 2;
+    public static int STYLE_VIP       = 1;
     // 穷逼VIP，充话费送的那种
-    public static int STYLE_POOR_VIP  = 3;
+    public static int STYLE_POOR_VIP  = 2;
 }

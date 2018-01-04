@@ -1,5 +1,6 @@
 package com.pear.bottle_ae;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -36,5 +37,9 @@ public interface Services {
     @Headers({"Content-type:application/json","Accept: application/json"})
     @POST("bottles")
     Observable<Bottle> postBottle(@Body RequestBody route);
-
+    /**
+     * Added by Young in 2018/01/04
+     */
+    @GET("bottles/{type}")
+    Observable<List<Bottle>> getBottle(@Path("type") String type);
 }
