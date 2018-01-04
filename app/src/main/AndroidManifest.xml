@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pear.bottle_ae">
 
@@ -16,14 +16,16 @@
 
         </activity>
         <activity android:name=".PersonalActivity" />
-        <activity android:name=".MainActivity1"></activity>
-        <activity android:name=".MapActivity">
+        <activity android:name=".MainActivity1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MapActivity">
+        </activity>
+        <activity android:name=".BottleActivity"></activity>
     </application>
     
     //地图包、搜索包需要的基础权限

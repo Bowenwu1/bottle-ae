@@ -50,6 +50,7 @@
         android:layout_marginRight="25dp"
         android:layout_marginBottom="0dp"
         android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:id="@+id/layout1">
@@ -85,6 +86,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:id="@+id/layout2">
