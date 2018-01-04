@@ -29,4 +29,12 @@ public interface Services {
 
     @GET("users/self")
     Observable<User> get();
+
+    /**
+     * Added by Bowen Wu in 2018/01/04
+     */
+    @Headers({"Content-type:application/json","Accept: application/json"})
+    @POST("bottles")
+    Observable<Bottle> postBottle(@Body RequestBody route);
+
 }
