@@ -20,7 +20,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Factory {
-    static private String url =" https://bottle.resetbypear.com/api/";
+
+    private final static String BASE_URL = "https://bottle.resetbypear.com/api/";
+    private static Services servicesInstance = null;
+
     public   static OkHttpClient createOkhttp(Context context) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -44,5 +47,13 @@ public class Factory {
                 .client(createOkhttp(context))
                 .build();
 
+    }
+
+    public static Services getServices(Context context) {
+        if (null == servicesInstance) {
+            Retrofit retrofit = createRetrofit(BASE_URL, context);
+            servicesInstance = retrofit.create(Services.class);
+        }
+       return servicesInstance;
     }
 }

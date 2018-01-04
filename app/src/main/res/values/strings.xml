@@ -10,4 +10,8 @@
     <string name="man">男</string>
     <string name="woman">女</string>
     <string name="sex">性别：</string>
+
+    <string name="send_bottle">发送</string>
+    <string name="cancle">取消</string>
+    <string name="please_input_content_of_bottle">请输入瓶子的内容</string>
 </resources>
