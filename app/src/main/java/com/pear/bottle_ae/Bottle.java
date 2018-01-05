@@ -21,6 +21,8 @@ public class Bottle {
     public final static int STYLE_POOR_VIP  = 3;
     public final static int ICON_STYLE_POOR_VIP = R.drawable.bottle_small_yellow;
 
+    // 不能打开的瓶子
+    public final static int ICON_STYLE_UNREACHABLE = R.drawable.bottle_small_gray;
     public final static double SPAN_LONGITUDE = 0.076545;
     public final static double SPAN_LATITUDE    = 0.054567;
 
@@ -58,7 +60,10 @@ public class Bottle {
         return (distanceLatitude <= SPAN_LATITUDE) && (distanceLongitude <= SPAN_LONGITUDE);
     }
 
-    public int getIconID() {
+    public int getIconID(Location myLocation) {
+        if (!whetherInArea(myLocation)) {
+            return ICON_STYLE_UNREACHABLE;
+        }
         switch (this.style) {
             case STYLE_NORMAL:
                 return ICON_STYLE_NORMAL;

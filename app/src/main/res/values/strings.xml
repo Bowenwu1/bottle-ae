@@ -21,4 +21,5 @@
 
     <string name="opening_bottle">拼命打开中</string>
     <string name="internal_error">内部错误</string>
+    <string name="too_far_to_open_bottle">请走近点打开</string>
 </resources>

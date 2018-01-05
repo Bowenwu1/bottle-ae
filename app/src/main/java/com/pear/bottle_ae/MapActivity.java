@@ -205,12 +205,17 @@ public class MapActivity extends AppCompatActivity {
     }
     private MarkerOptions getMarkerForBottle(Bottle bottle) {
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), bottle.getIconID())));
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), bottle.getIconID(myLocation))));
         markerOptions.position(bottle.getLocation());
         return markerOptions;
     }
     private void openBottle(Bottle bottle) {
         System.out.println(bottle.bottle_id);
+        // 这是一个距离过远的瓶子，不能打开
+        if (!bottle.whetherInArea(myLocation)) {
+            ToastInfo(R.string.too_far_to_open_bottle);
+            return;
+        }
         ToastInfo(R.string.opening_bottle);
         Factory.getServices(MapActivity.this).openBottle(bottle.bottle_id)
                 .observeOn(AndroidSchedulers.mainThread())
