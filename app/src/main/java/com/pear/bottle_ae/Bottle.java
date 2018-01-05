@@ -7,18 +7,19 @@ import com.amap.api.maps2d.model.Marker;
 
 /**
  * Created by wubowen on 2018/1/4.
+ * Revised by YY on 2018-1-5
  */
 
 public class Bottle {
 
     // 普通瓶子
-    public final static int STYLE_NORMAL    = 1;
+    public final static int STYLE_NORMAL    = 0;
     public final static int ICON_STYLE_NORMAL = R.drawable.bottle_small_blue;
     // VIP扔的瓶子
-    public final static int STYLE_VIP       = 2;
+    public final static int STYLE_VIP       = 1;
     public final static int ICON_STYLE_VIP = R.drawable.bottle_small_green;
     // 穷逼VIP，充话费送的那种
-    public final static int STYLE_POOR_VIP  = 3;
+    public final static int STYLE_POOR_VIP  = 2;
     public final static int ICON_STYLE_POOR_VIP = R.drawable.bottle_small_yellow;
 
     // 不能打开的瓶子
@@ -30,6 +31,8 @@ public class Bottle {
     public String content;
     public int style;
     public BottleLocation location;
+    public int openers_count;
+    public String created_at;
 
     // 监听标记点的点击事件时有用
     public Marker marker;
