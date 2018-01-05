@@ -18,4 +18,7 @@
     <string name="sending">正在发送中</string>
     <string name="send_complete">发送成功</string>
     <string name="send_fail">发送失败</string>
+
+    <string name="opening_bottle">拼命打开中</string>
+    <string name="internal_error">内部错误</string>
 </resources>

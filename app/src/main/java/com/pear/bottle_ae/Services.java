@@ -55,4 +55,11 @@ public interface Services {
     @GET("bottles/{type}")
     Observable<List<Bottle>> getBottle(@Path("type") String type);
 
+    /**
+     * Added by Bowen Wu in 2018/01/05
+     * Used to open bottle
+     */
+    @Headers({"Content-type:application/json","Accept: application/json"})
+    @POST("bottles/{bottle_id}/open")
+    Observable<ResponseBottle> openBottle(@Path("bottle_id") int bottle_id);
 }

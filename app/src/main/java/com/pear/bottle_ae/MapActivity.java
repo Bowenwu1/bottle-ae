@@ -1,6 +1,7 @@
 package com.pear.bottle_ae;
 
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,13 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
@@ -30,6 +36,7 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import com.pear.bottle_ae.R;
 
 import okhttp3.RequestBody;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,6 +44,7 @@ import rx.schedulers.Schedulers;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,6 +86,7 @@ public class MapActivity extends AppCompatActivity {
         aMap.setMyLocationEnabled(true);
         aMap.setOnMyLocationChangeListener(onMyLocationChangeListener);
         aMap.setOnCameraChangeListener(onCameraChangeListener);
+        aMap.setOnMarkerClickListener(onMarkerClickListener);
         uiSettings = aMap.getUiSettings();
         uiSettings.setMyLocationButtonEnabled(true);
         aMap.setMyLocationEnabled(true);
@@ -155,6 +164,7 @@ public class MapActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         System.out.println("ERROR " + e.getMessage());
+                        ToastInfo(R.string.internal_error);
                     }
 
                     @Override
@@ -162,6 +172,7 @@ public class MapActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         String data = gson.toJson(responseBottlesList);
                         System.out.println("onNext data : " + data);
+                        clearBottleMarker();
                         MapActivity.this.responseBottlesList = responseBottlesList;
                         MapActivity.this.refreshMapMarker();
                     }
@@ -177,7 +188,61 @@ public class MapActivity extends AppCompatActivity {
         return result;
     }
     private void refreshMapMarker() {
+        List<Bottle> list = responseBottlesList.data.bottles;
+        for (int i = 0; i < list.size(); ++i) {
+            list.get(i).marker = aMap.addMarker(getMarkerForBottle(list.get(i)));
+        }
+    }
+    private void clearBottleMarker() {
+        if (null == responseBottlesList) {
+            return;
+        }
+        for (int i = 0; i < responseBottlesList.data.bottles.size(); ++i) {
+            if (null != responseBottlesList.data.bottles.get(i).marker) {
+                responseBottlesList.data.bottles.get(i).marker.destroy();
+            }
+        }
+    }
+    private MarkerOptions getMarkerForBottle(Bottle bottle) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), bottle.getIconID())));
+        markerOptions.position(bottle.getLocation());
+        return markerOptions;
+    }
+    private void openBottle(Bottle bottle) {
+        System.out.println(bottle.bottle_id);
+        ToastInfo(R.string.opening_bottle);
+        Factory.getServices(MapActivity.this).openBottle(bottle.bottle_id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(new Observer<ResponseBottle>() {
+                    @Override
+                    public void onCompleted() {
 
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        HttpException httpException = (HttpException)e;
+                        System.out.println("open Bottle onError : " + httpException.response().code());
+                        ToastInfo(R.string.internal_error);
+                    }
+
+                    @Override
+                    public void onNext(ResponseBottle bottle) {
+                        // 显示对话框
+                        LayoutInflater layoutInflater = LayoutInflater.from(MapActivity.this);
+                        View dialogView = layoutInflater.inflate(R.layout.open_bottle_dialog, null);
+                        TextView content = (TextView)dialogView.findViewById(R.id.content);
+                        content.setText(bottle.data.content);
+                        TextView formatted_address = (TextView)dialogView.findViewById(R.id.formatted_address);
+                        formatted_address.setText(bottle.data.location.formatted_address);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+                        builder.setView(dialogView);
+                        builder.show();
+
+                    }
+                });
     }
     // 各种 listener
     private GeocodeSearch.OnGeocodeSearchListener onGeocodeSearchListener = new GeocodeSearch.OnGeocodeSearchListener() {
@@ -235,6 +300,27 @@ public class MapActivity extends AppCompatActivity {
         }
     };
 
+    private AMap.OnMarkerClickListener onMarkerClickListener = new AMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            System.out.println("onMarkerClick : " + marker.toString());
+            // 遍历寻找marker对应的瓶子
+            // 当瓶子数量增多时，这样处理可能会造成ANR
+            // 为了先实现功能，姑且这样
+            // by Bowen Wu in 2018/01/05
+            List<Bottle> bottlesList = responseBottlesList.data.bottles;
+            for (int i = 0; i < bottlesList.size(); ++i) {
+                // 判断是不是同一个marker，即引用相同
+                // 相同，弹出对话框显示详情
+                // 并且通知服务端，我开启了这个瓶子
+                if (bottlesList.get(i).marker.equals(marker)) {
+                    System.out.println("find corresponding marker : " + bottlesList.get(i).content);
+                    openBottle(bottlesList.get(i));
+                }
+            }
+            return true;
+        }
+    };
     private View.OnClickListener addButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
