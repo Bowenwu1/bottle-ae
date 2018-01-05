@@ -19,12 +19,12 @@ public class Bottle {
     public final static double SPAN_LATITUDE    = 0.054567;
 
     public int bottle_id;
-    public String Content;
+    public String content;
     public int style;
     public BottleLocation location;
 
     public Bottle(String content, int style, double latitude, double longitude, String formatted_address) {
-        this.Content = content;
+        this.content = content;
         switch (style) {
             case STYLE_NORMAL:
                 this.style = STYLE_NORMAL;
