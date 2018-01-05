@@ -49,10 +49,12 @@ public class Factory {
     }
 
     public static Services getServices(Context context) {
-        if (null == servicesInstance) {
-            Retrofit retrofit = createRetrofit(BASE_URL, context);
-            servicesInstance = retrofit.create(Services.class);
-        }
+//        if (null == servicesInstance) {
+//            Retrofit retrofit = createRetrofit(BASE_URL, context);
+//            servicesInstance = retrofit.create(Services.class);
+//        }
+        Retrofit retrofit = createRetrofit(BASE_URL, context);
+        servicesInstance = retrofit.create(Services.class);
        return servicesInstance;
     }
 }
