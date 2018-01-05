@@ -15,18 +15,18 @@ import okhttp3.RequestBody;
 public class PostBodyHelper {
 
 
-    public RequestBody mapToRequestBody(Map<String, String> map) {
+    public static RequestBody mapToRequestBody(Map<String, String> map) {
         String strEntity = new Gson().toJson(map);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
     }
 
-    public RequestBody RequestBottleModelToRequestBody(Bottle bottle) {
+    public static RequestBody RequestBottleModelToRequestBody(Bottle bottle) {
         String data = new Gson().toJson(bottle);
         Log.d("JSON", data);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), data);
     }
 
-    public RequestBody ObjToRequestBody(Object obj) {
+    public static RequestBody ObjToRequestBody(Object obj) {
         String data = new Gson().toJson(obj);
         Log.d("JSON", data);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), data);

@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -44,16 +45,21 @@ public interface Services {
      * Used when get nearby bottle
      */
     @Headers({"Content-type:application/json","Accept: application/json"})
-    @GET("/bottles/nearby/?latitude={latitude}&longitude={longitude}&latitude_span={latitude_span}&longitude_span={longitude_span}")
-    Observable<ResponseBottlesList> getNearbyBottle(@Path("latitude") double latitude, @Path("longitude") double longitude,
-                                                    @Path("latitude_span") double latitude_span, @Path("longitude_span") double longitude_span);
+    @GET("bottles/nearby")
+    Observable<ResponseBottlesList> getNearbyBottle(@QueryMap Map<String, String> options);
 
 
-    Observable<Bottle> postBottle(@Body RequestBody route);
     /**
      * Added by Young in 2018/01/04
      */
     @GET("bottles/{type}")
     Observable<List<Bottle>> getBottle(@Path("type") String type);
 
+    /**
+     * Added by Bowen Wu in 2018/01/05
+     * Used to open bottle
+     */
+    @Headers({"Content-type:application/json","Accept: application/json"})
+    @POST("bottles/{bottle_id}/open")
+    Observable<ResponseBottle> openBottle(@Path("bottle_id") int bottle_id);
 }
