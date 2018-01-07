@@ -13,19 +13,19 @@
             android:name="com.amap.api.v2.apikey"
             android:value="04f7fbc5bd5982966412292edae07db9"/>
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".PersonalActivity" />
-        <activity android:name=".MainActivity1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PersonalActivity" />
+        <activity android:name=".MainActivity1">
+        </activity>
         <activity android:name=".MapActivity">
         </activity>
         <activity android:name=".BottleActivity"></activity>
+        <activity android:name=".DetailActivity"></activity>
     </application>
 
     

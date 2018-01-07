@@ -6,12 +6,7 @@
         android:title="个人主页"
         />
     <item
-        android:id="@+id/bottle"
-        android:icon="@drawable/bottle"
-        android:title="漂流瓶"
-        />
-    <item
         android:id="@+id/home_page"
         android:icon="@drawable/mainpage_dark"
-        android:title="主页"/>
+        android:title="地图"/>
 </menu>

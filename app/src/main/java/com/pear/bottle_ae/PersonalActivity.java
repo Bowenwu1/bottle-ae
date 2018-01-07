@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.pear.bottle_ae.R;
+
 import java.util.List;
 import java.util.Map;
 

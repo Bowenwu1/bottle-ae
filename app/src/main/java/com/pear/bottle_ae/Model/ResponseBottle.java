@@ -1,8 +1,10 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Model;
 
 /**
  * Created by wubowen on 2018/1/4.
  */
+
+import com.pear.bottle_ae.Model.Bottle;
 
 /**
  * 这里代码有冗余，具体怎么处理后面再说

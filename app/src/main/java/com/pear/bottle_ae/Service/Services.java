@@ -1,18 +1,18 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Service;
 
-import java.util.List;
+import com.pear.bottle_ae.Model.ResponseBottle;
+import com.pear.bottle_ae.Model.ResponseBottlesList;
+import com.pear.bottle_ae.Model.ResponseUser;
+
 import java.util.Map;
 
 import okhttp3.RequestBody;
-import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -22,14 +22,14 @@ import rx.Observable;
 public interface Services {
     @Headers({"Content-type:application/json","Accept: application/json"})
     @POST("users")
-    Observable<User> postUser(@Body RequestBody route);
+    Observable<ResponseUser> postUser(@Body RequestBody route);
 
     @Headers({"Content-type:application/json","Accept: application/json"})
     @POST("sessions")
-    Observable<User> loadUser(@Body RequestBody route);
+    Observable<ResponseUser> loadUser(@Body RequestBody route);
 
     @GET("users/self")
-    Observable<User> get();
+    Observable<ResponseUser> get();
 
     /**
      * Added by Bowen Wu in 2018/01/04
@@ -44,16 +44,21 @@ public interface Services {
      * Used when get nearby bottle
      */
     @Headers({"Content-type:application/json","Accept: application/json"})
-    @GET("/bottles/nearby/?latitude={latitude}&longitude={longitude}&latitude_span={latitude_span}&longitude_span={longitude_span}")
-    Observable<ResponseBottlesList> getNearbyBottle(@Path("latitude") double latitude, @Path("longitude") double longitude,
-                                                    @Path("latitude_span") double latitude_span, @Path("longitude_span") double longitude_span);
+    @GET("bottles/nearby")
+    Observable<ResponseBottlesList> getNearbyBottle(@QueryMap Map<String, String> options);
 
 
-    Observable<Bottle> postBottle(@Body RequestBody route);
     /**
      * Added by Young in 2018/01/04
      */
     @GET("bottles/{type}")
-    Observable<List<Bottle>> getBottle(@Path("type") String type);
+    Observable<ResponseBottlesList> getBottle(@Path("type") String type);
 
+    /**
+     * Added by Bowen Wu in 2018/01/05
+     * Used to open bottle
+     */
+    @Headers({"Content-type:application/json","Accept: application/json"})
+    @POST("bottles/{bottle_id}/open")
+    Observable<ResponseBottle> openBottle(@Path("bottle_id") int bottle_id);
 }

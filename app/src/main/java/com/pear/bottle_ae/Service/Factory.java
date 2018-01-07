@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Service;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.pear.bottle_ae.Service.Services;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +40,6 @@ public class Factory {
         return okHttpClient;
     }
     public  static Retrofit createRetrofit(String baseUrl , Context context) {
-        baseUrl = url;
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -50,10 +50,12 @@ public class Factory {
     }
 
     public static Services getServices(Context context) {
-        if (null == servicesInstance) {
-            Retrofit retrofit = createRetrofit(BASE_URL, context);
-            servicesInstance = retrofit.create(Services.class);
-        }
+//        if (null == servicesInstance) {
+//            Retrofit retrofit = createRetrofit(BASE_URL, context);
+//            servicesInstance = retrofit.create(Services.class);
+//        }
+        Retrofit retrofit = createRetrofit(BASE_URL, context);
+        servicesInstance = retrofit.create(Services.class);
        return servicesInstance;
     }
 }
