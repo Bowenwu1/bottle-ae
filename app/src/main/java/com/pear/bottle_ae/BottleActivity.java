@@ -38,57 +38,63 @@ public class BottleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
+        init();
+        setContentView(R.layout.bottle_list);
+        setCommonAdapter();
+
+    }
+    void init() {
         String type = "";
         if(getIntent().getBooleanExtra("isPick", true)) {
-          //  Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
             getWindow().setTitle("捡到的瓶子");
             type = "opened";
             isPick = true;
         } else {
-        //    Toast.makeText(getApplicationContext(), "456", Toast.LENGTH_LONG).show();
             getWindow().setTitle("扔出的瓶子");
             type = "created";
             isPick = false;
         }
+        getData(type);
+    }
+    void getData(String type) {
         data = new ArrayList<>();
         Factory.getServices(BottleActivity.this).getBottle(type).subscribeOn(Schedulers.newThread())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<ResponseBottlesList>() {
-            @Override
-            public void onCompleted() {
-                Log.i("Service","ok");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("Service", e.getMessage());
-            }
-
-            @Override
-            public void onNext(ResponseBottlesList bottlesList) {
-                responseBottlesList = bottlesList;
-                List<Bottle> bottles= responseBottlesList.data.bottles;
-                for (int i = 0; i < bottles.size(); i++) {
-                    Bottle b = bottles.get(i);
-                    LinkedHashMap<String, Object> temp = new LinkedHashMap<>();
-                    temp.put("id", b.bottle_id);
-                    temp.put("location", b.location);
-                    temp.put("type", b.style);
-                    temp.put("time", b.created_at);
-                    temp.put("content",b.content);
-                    if (!isPick) {
-                        temp.put("readcount",b.openers_count);
-                    } else {
-                       // temp.put("onwer", b.onwer);
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseBottlesList>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i("Service","ok");
                     }
-                    data.add(temp);
-                }
-                commonAdapter.notifyDataSetChanged();
-            }
-        });
-        setContentView(R.layout.bottle_list);
 
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("Service", e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ResponseBottlesList bottlesList) {
+                        responseBottlesList = bottlesList;
+                        List<Bottle> bottles= responseBottlesList.data.bottles;
+                        for (int i = 0; i < bottles.size(); i++) {
+                            Bottle b = bottles.get(i);
+                            LinkedHashMap<String, Object> temp = new LinkedHashMap<>();
+                            temp.put("id", b.bottle_id);
+                            temp.put("location", b.location);
+                            temp.put("type", b.style);
+                            temp.put("time", b.created_at);
+                            temp.put("content",b.content);
+                            if (!isPick) {
+                                temp.put("readcount",b.openers_count);
+                            } else {
+                                // temp.put("onwer", b.onwer);
+                            }
+                            data.add(temp);
+                        }
+                        commonAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
+    void setCommonAdapter() {
         recyclerView = (RecyclerView)findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commonAdapter = new CommonAdapter<Map<String, Object>>(this, R.layout.list_item, data) {

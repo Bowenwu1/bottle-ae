@@ -23,29 +23,34 @@ public class DetailActivity  extends AppCompatActivity {
     private ImageView detail_img;
 
     private HashMap<String, Object> data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        detail_content = (TextView)findViewById(R.id.detail_content);
-        detail_name = (TextView)findViewById(R.id.detail_name);
-        detail_time = (TextView)findViewById(R.id.detail_time);
-        detail_img = (ImageView)findViewById(R.id.detail_img);
-        data = (HashMap<String, Object>)getIntent().getExtras().get("data");
+        init();
+    }
+
+    void init() {
+        detail_content = (TextView) findViewById(R.id.detail_content);
+        detail_name = (TextView) findViewById(R.id.detail_name);
+        detail_time = (TextView) findViewById(R.id.detail_time);
+        detail_img = (ImageView) findViewById(R.id.detail_img);
+        data = (HashMap<String, Object>) getIntent().getExtras().get("data");
         if (data != null) {
             detail_content.setText(data.get("content").toString());
-            switch ((int)data.get("type")) {
-                    case 0:
-                        detail_img.setImageResource(R.drawable.bottle_small_blue);
-                    case 1:
-                        detail_img.setImageResource(R.drawable.bottle_small_green);
-                    case 2:
-                        detail_img.setImageResource(R.drawable.bottle_small_yellow);
-                    default:
-                        detail_img.setImageResource(R.drawable.bottle_small_gray);
+            switch ((int) data.get("type")) {
+                case 0:
+                    detail_img.setImageResource(R.drawable.bottle_small_blue);
+                case 1:
+                    detail_img.setImageResource(R.drawable.bottle_small_green);
+                case 2:
+                    detail_img.setImageResource(R.drawable.bottle_small_yellow);
+                default:
+                    detail_img.setImageResource(R.drawable.bottle_small_gray);
             }
             detail_time.setText(data.get("time").toString());
-            BottleLocation bottleLocation = (BottleLocation)data.get("location");
+            BottleLocation bottleLocation = (BottleLocation) data.get("location");
             detail_name.setText(bottleLocation.formatted_address);
         }
     }
