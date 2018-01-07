@@ -47,7 +47,7 @@ public class BottleActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "456", Toast.LENGTH_LONG).show();
             getWindow().setTitle("扔出的瓶子");
-            type = "picked";
+            type = "created";
             isPick = false;
         }
         data = new ArrayList<>();
@@ -61,7 +61,7 @@ public class BottleActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
-                Log.e("Service", "8ok");
+                Log.e("Service", e.getMessage());
             }
 
             @Override
@@ -83,6 +83,7 @@ public class BottleActivity extends AppCompatActivity {
                     }
                     data.add(temp);
                 }
+                commonAdapter.notifyDataSetChanged();
             }
         });
         setContentView(R.layout.bottle_list);

@@ -48,7 +48,7 @@ public class MainActivity1 extends AppCompatActivity {
     private MyLocationStyle myLocationStyle;
     private UiSettings uiSettings;
     private Services services;
-    private TextView nickname;
+    private TextView nickname, loadname;
     private ImageView personal_img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +116,7 @@ public class MainActivity1 extends AppCompatActivity {
         layout2 = (LinearLayout)personalPage.findViewById(R.id.layout2);
         nickname = (TextView)personalPage.findViewById(R.id.nickname);
         personal_img = (ImageView)personalPage.findViewById(R.id.personal_img);
+        loadname = (TextView)personalPage.findViewById(R.id.loadname);
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,17 +152,16 @@ public class MainActivity1 extends AppCompatActivity {
                         if (owner.equals(null)) {
                             Log.e("user", "OWNERISNULL");
                         }
-                        if (owner.getData().equals(null))) {
-                            Log.e("user", "DATAisNULL");
-                        }
-                       String _nickname =  owner.getData().getNickname();
-                       String _gender = owner.getData().getGender();
+                       String _nickname =  owner.getNickname();
+                       String _gender = owner.getGender();
+                       String _loadname = owner.getUsername();
                        if (_gender.equals("male")) {
                            personal_img.setImageResource(R.drawable.man);
                        } else {
                              personal_img.setImageResource(R.drawable.woman);
                        }
                        nickname.setText(_nickname);
+                       loadname.setText(_loadname);
                     }
                 });
     }
