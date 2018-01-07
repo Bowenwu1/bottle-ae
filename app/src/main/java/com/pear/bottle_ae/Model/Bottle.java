@@ -89,4 +89,5 @@ public class Bottle {
     public LatLng getLocation() {
         return new LatLng(location.latitude, location.longitude);
     }
+
 }

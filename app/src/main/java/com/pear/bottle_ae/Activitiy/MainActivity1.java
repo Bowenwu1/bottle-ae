@@ -26,11 +26,13 @@ import com.pear.bottle_ae.Factory;
 import com.pear.bottle_ae.Model.User;
 import com.pear.bottle_ae.Adapter.MyPagerAdapter;
 import com.pear.bottle_ae.R;
+import com.pear.bottle_ae.ResponseUser;
 import com.pear.bottle_ae.Services;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -143,7 +145,7 @@ public class MainActivity1 extends AppCompatActivity {
         });
         Factory.getServices(MainActivity1.this).get().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<User>() {
+                .subscribe(new Subscriber<ResponseUser>() {
                     @Override
                     public void onCompleted() {
 
@@ -154,8 +156,8 @@ public class MainActivity1 extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(User user) {
-                        owner = user;
+                    public void onNext(ResponseUser responseUser) {
+                        owner = responseUser.getUser();
                        String _nickname =  owner.getData().getNickname();
                        String _gender = owner.getData().getGender();
                        if (_gender.equals("male")) {

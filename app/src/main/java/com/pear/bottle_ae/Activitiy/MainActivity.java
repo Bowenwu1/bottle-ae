@@ -1,5 +1,6 @@
 package com.pear.bottle_ae.Activitiy;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         services.postUser(body)
                                 .subscribeOn(Schedulers.newThread())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Subscriber<User>() {
+                                .subscribe(new Subscriber<ResponseUser>() {
                                     @Override
                                     public void onCompleted() {
 
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onNext(User user) {
+                                    public void onNext(ResponseUser user) {
                                         Log.i("error",user.getStatus());
                                     }
                                 });
@@ -208,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                     services.loadUser(body)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Subscriber<User>() {
+                            .subscribe(new Subscriber<ResponseUser>() {
                                 @Override
                                 public void onCompleted() {
 
@@ -224,7 +225,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onNext(User user) {
+                                public void onNext(ResponseUser user) {
+                                    startActivity(new Intent(MainActivity.this, MapActivity.class));
                                 }
                             });
 

@@ -20,14 +20,14 @@ import rx.Observable;
 public interface Services {
     @Headers({"Content-type:application/json","Accept: application/json"})
     @POST("users")
-    Observable<User> postUser(@Body RequestBody route);
+    Observable<ResponseUser> postUser(@Body RequestBody route);
 
     @Headers({"Content-type:application/json","Accept: application/json"})
     @POST("sessions")
-    Observable<User> loadUser(@Body RequestBody route);
+    Observable<ResponseUser> loadUser(@Body RequestBody route);
 
     @GET("users/self")
-    Observable<User> get();
+    Observable<ResponseUser> get();
 
     /**
      * Added by Bowen Wu in 2018/01/04
