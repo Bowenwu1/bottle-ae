@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Activitiy;
 
 import android.content.Intent;
 import android.location.Location;
@@ -12,22 +12,35 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.pear.bottle_ae.BottleActivity;
+import com.pear.bottle_ae.Factory;
+import com.pear.bottle_ae.Model.User;
+import com.pear.bottle_ae.Adapter.MyPagerAdapter;
+import com.pear.bottle_ae.R;
+import com.pear.bottle_ae.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Young on 2017/12/28.
  */
 
 public class MainActivity1 extends AppCompatActivity {
+    public static User owner;
     private ViewPager viewPager;
     private MenuItem menuItem;
     private BottomNavigationView bottomNavigationView;
@@ -38,15 +51,21 @@ public class MainActivity1 extends AppCompatActivity {
     private AMap aMap = null;
     private MyLocationStyle myLocationStyle;
     private UiSettings uiSettings;
+    private Services services;
+    private TextView nickname;
+    private ImageView personal_img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
+        CreatePersonal();
+        CreateMap(savedInstanceState);
+        SetViewPager();
+    }
+    private void SetViewPager() {
         LayoutInflater inflater = getLayoutInflater();
         personalPage = inflater.inflate(R.layout.activity_personal, null);
         homePage = inflater.inflate(R.layout.activity_map, null);
-        CreatePersonal();
-        CreateMap(savedInstanceState);
         viewList = new ArrayList<>();
         viewList.add(personalPage);
         viewList.add(homePage);
@@ -102,6 +121,8 @@ public class MainActivity1 extends AppCompatActivity {
     private void CreatePersonal() {
         layout1 = (LinearLayout)personalPage.findViewById(R.id.layout1);
         layout2 = (LinearLayout)personalPage.findViewById(R.id.layout2);
+        nickname = (TextView)personalPage.findViewById(R.id.nickname);
+        personal_img = (ImageView)personalPage.findViewById(R.id.personal_img);
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +141,31 @@ public class MainActivity1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Factory.getServices(MainActivity1.this).get().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        owner = user;
+                       String _nickname =  owner.getData().getNickname();
+                       String _gender = owner.getData().getGender();
+                       if (_gender.equals("male")) {
+                           personal_img.setImageResource(R.drawable.man);
+                       } else {
+                             personal_img.setImageResource(R.drawable.woman);
+                       }
+                       nickname.setText(_nickname);
+                    }
+                });
     }
     private void CreateMap(Bundle savedInstanceState) {
         //获取地图控件引用

@@ -1,10 +1,12 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Model;
+
+import java.io.Serializable;
 
 /**
  * Created by wubowen on 2018/1/4.
  */
 
-public class BottleLocation {
+public class BottleLocation implements Serializable {
     public String formatted_address;
     public double latitude;
     public double longitude;

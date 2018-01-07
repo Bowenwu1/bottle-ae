@@ -1,5 +1,8 @@
 package com.pear.bottle_ae;
 
+import com.pear.bottle_ae.Model.Bottle;
+import com.pear.bottle_ae.Model.BottleLocation;
+
 import java.util.List;
 
 /**

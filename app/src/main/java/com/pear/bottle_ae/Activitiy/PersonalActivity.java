@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Activitiy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.pear.bottle_ae.R;
 
 import java.util.List;
 import java.util.Map;

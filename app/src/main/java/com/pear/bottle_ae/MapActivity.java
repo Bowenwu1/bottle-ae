@@ -1,10 +1,8 @@
 package com.pear.bottle_ae;
 
-import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -24,7 +22,6 @@ import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
-import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
@@ -33,12 +30,11 @@ import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
-import com.pear.bottle_ae.R;
+import com.pear.bottle_ae.Model.Bottle;
 
 import okhttp3.RequestBody;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import com.google.gson.Gson;
@@ -380,9 +376,9 @@ public class MapActivity extends AppCompatActivity {
                             ToastInfo(R.string.sending);
                             Bottle bottleToSend;
                             if (null == myLocation) {
-                                bottleToSend = new Bottle(content, type, 113.39195, 23.06656, formatted_address);
+                                bottleToSend = new Bottle(content, type, 113.39195, 23.06656, formatted_address, null);
                             } else {
-                                bottleToSend = new Bottle(content, type, myLocation.getLatitude(), myLocation.getLongitude(), formatted_address);
+                                bottleToSend = new Bottle(content, type, myLocation.getLatitude(), myLocation.getLongitude(), formatted_address, null);
                             }
                             RequestBody requestBody = PostBodyHelper.ObjToRequestBody(bottleToSend);
                             System.out.println(requestBody.toString());

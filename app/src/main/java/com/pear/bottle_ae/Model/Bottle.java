@@ -1,9 +1,14 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Model;
 
 import android.location.Location;
 
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
+import com.pear.bottle_ae.Activitiy.MainActivity1;
+import com.pear.bottle_ae.MapActivity;
+import com.pear.bottle_ae.R;
+
+import java.io.Serializable;
 
 /**
  * Created by wubowen on 2018/1/4.
@@ -31,13 +36,14 @@ public class Bottle {
     public String content;
     public int style;
     public BottleLocation location;
-    public int openers_count;
+    public int openers_count = 0;
     public String created_at;
+    public User onwer;
 
     // 监听标记点的点击事件时有用
     public Marker marker;
 
-    public Bottle(String content, int style, double latitude, double longitude, String formatted_address) {
+    public Bottle(String content, int style, double latitude, double longitude, String formatted_address, User owner) {
         this.content = content;
         switch (style) {
             case STYLE_NORMAL:
@@ -52,10 +58,11 @@ public class Bottle {
             default:
                 this.style = STYLE_NORMAL;
         }
-
+        if (owner == null) {
+            owner = MainActivity1.owner;
+        }
         location = new BottleLocation(latitude, longitude, formatted_address);
     }
-
 
     public boolean whetherInArea(Location myLocation) {
         double distanceLongitude = Math.abs(myLocation.getLongitude() - this.location.longitude);

@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp">
+    <ImageView
+        android:id="@+id/detail_img"
+        android:src="@drawable/bottle_in_map_blue"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/detail_content"
+        />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/detail_img"
+        app:layout_constraintTop_toTopOf="@id/detail_img"
+        app:layout_constraintBottom_toTopOf="@id/detail_time"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:text="地点"/>
+    <TextView
+        android:id="@+id/detail_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/detail_img"
+
+        app:layout_constraintStart_toStartOf="@id/detail_name"
+        app:layout_constraintBottom_toBottomOf="@id/detail_img"
+        android:text="2018年1月7日"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:id="@+id/detail_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#eeeeee"
+        android:text="内容"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detail_img" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""/>
+</android.support.constraint.ConstraintLayout>

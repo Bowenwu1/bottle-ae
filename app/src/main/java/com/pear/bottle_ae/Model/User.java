@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Model;
 
 /**
  * Created by hp on 2017/12/25.
