@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pear.bottle_ae.Adapter.CommonAdapter;
 import com.pear.bottle_ae.Adapter.ViewHolder;
@@ -36,12 +37,15 @@ public class BottleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
         String type = "";
         if(getIntent().getBooleanExtra("isPick", true)) {
+            Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
             getWindow().setTitle("捡到的瓶子");
             type = "opened";
             isPick = true;
         } else {
+            Toast.makeText(getApplicationContext(), "456", Toast.LENGTH_LONG).show();
             getWindow().setTitle("扔出的瓶子");
             type = "picked";
             isPick = false;

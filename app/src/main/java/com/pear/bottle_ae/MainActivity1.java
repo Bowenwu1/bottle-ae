@@ -119,7 +119,6 @@ public class MainActivity1 extends AppCompatActivity {
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MainActivity1.this,BottleActivity.class);
                 intent.putExtra("isPick", true);
                 startActivity(intent);
@@ -139,16 +138,22 @@ public class MainActivity1 extends AppCompatActivity {
                 .subscribe(new Subscriber<ResponseUser>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.i("user", "completed");
                     }
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e("user", e.getMessage());
                     }
 
                     @Override
                     public void onNext(ResponseUser responseUser) {
                         owner = responseUser.getUser();
+                        if (owner.equals(null)) {
+                            Log.e("user", "OWNERISNULL");
+                        }
+                        if (owner.getData().equals(null))) {
+                            Log.e("user", "DATAisNULL");
+                        }
                        String _nickname =  owner.getData().getNickname();
                        String _gender = owner.getData().getGender();
                        if (_gender.equals("male")) {

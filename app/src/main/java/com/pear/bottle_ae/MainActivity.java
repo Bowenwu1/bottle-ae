@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onNext(ResponseUser user) {
-                                    startActivity(new Intent(MainActivity.this, MapActivity.class));
+                                    startActivity(new Intent(MainActivity.this,MainActivity1.class));
                                 }
                             });
 
