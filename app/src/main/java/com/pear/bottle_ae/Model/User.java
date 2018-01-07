@@ -4,20 +4,11 @@ package com.pear.bottle_ae.Model;
  * Created by hp on 2017/12/25.
  */
 
+/**
+ * Edited by Bowen Wu in 2018/01/07
+ */
+
 public class User {
-    private String status;
-
-    public String getStatus() {
-        return status;
-    }
-        private data data;
-
-
-    public User.data getData() {
-        return data;
-    }
-
-    public static class data {
         private int user_id;
         private String username;
         private String nickname;
@@ -38,5 +29,4 @@ public class User {
         public String getNickname() {
             return nickname;
         }
-    }
 }
