@@ -14,6 +14,7 @@ import com.pear.bottle_ae.Adapter.CommonAdapter;
 import com.pear.bottle_ae.Adapter.ViewHolder;
 import com.pear.bottle_ae.Model.Bottle;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,15 +38,15 @@ public class BottleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_LONG).show();
         String type = "";
         if(getIntent().getBooleanExtra("isPick", true)) {
-            Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(getApplicationContext(), "123", Toast.LENGTH_LONG).show();
             getWindow().setTitle("捡到的瓶子");
             type = "opened";
             isPick = true;
         } else {
-            Toast.makeText(getApplicationContext(), "456", Toast.LENGTH_LONG).show();
+        //    Toast.makeText(getApplicationContext(), "456", Toast.LENGTH_LONG).show();
             getWindow().setTitle("扔出的瓶子");
             type = "created";
             isPick = false;
@@ -98,9 +99,9 @@ public class BottleActivity extends AppCompatActivity {
                 ImageView pic = holder.getView(R.id.item_pic);
                 time.setText(s.get("time").toString());
                 content.setText(s.get("content").toString());
-                if (isPick) {
+                if (!isPick) {
                     TextView read = holder.getView(R.id.item_read);
-                    read.setText(s.get("readcount").toString());
+                    read.setText(s.get("readcount")+"人看过");
                 }
                 switch ((int)s.get("type")) {
                     case 0:
