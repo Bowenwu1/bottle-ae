@@ -1,11 +1,14 @@
 package com.pear.bottle_ae.Model;
 
 import android.location.Location;
+import android.os.Bundle;
 
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.pear.bottle_ae.MainActivity1;
 import com.pear.bottle_ae.R;
+
+import java.util.LinkedHashMap;
 
 /**
  * Created by wubowen on 2018/1/4.
@@ -85,6 +88,18 @@ public class Bottle {
 
     public LatLng getLocation() {
         return new LatLng(location.latitude, location.longitude);
+    }
+
+    public Bundle toDetailBundle() {
+        LinkedHashMap<String, Object> temp = new LinkedHashMap<>();
+        temp.put("id", this.bottle_id);
+        temp.put("location", this.location);
+        temp.put("type", this.style);
+        temp.put("time", this.created_at);
+        temp.put("content",this.content);
+        Bundle result = new Bundle();
+        result.putSerializable("data", temp);
+        return result;
     }
 
 }

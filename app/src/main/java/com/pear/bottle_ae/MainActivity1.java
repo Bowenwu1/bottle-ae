@@ -367,15 +367,19 @@ public class MainActivity1 extends AppCompatActivity {
                     @Override
                     public void onNext(ResponseBottle bottle) {
                         // 显示对话框
-                        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity1.this);
-                        View dialogView = layoutInflater.inflate(R.layout.open_bottle_dialog, null);
-                        TextView content = (TextView)dialogView.findViewById(R.id.content);
-                        content.setText(bottle.data.content);
-                        TextView formatted_address = (TextView)dialogView.findViewById(R.id.formatted_address);
-                        formatted_address.setText(bottle.data.location.formatted_address);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity1.this);
-                        builder.setView(dialogView);
-                        builder.show();
+//                        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity1.this);
+//                        View dialogView = layoutInflater.inflate(R.layout.open_bottle_dialog, null);
+//                        TextView content = (TextView)dialogView.findViewById(R.id.content);
+//                        content.setText(bottle.data.content);
+//                        TextView formatted_address = (TextView)dialogView.findViewById(R.id.formatted_address);
+//                        formatted_address.setText(bottle.data.location.formatted_address);
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity1.this);
+//                        builder.setView(dialogView);
+//                        builder.show();
+                        // 跳转到detail
+                        Intent intent = new Intent(MainActivity1.this, DetailActivity.class);
+                        intent.putExtras(bottle.data.toDetailBundle());
+                        startActivity(intent);
 
                     }
                 });
@@ -384,7 +388,7 @@ public class MainActivity1 extends AppCompatActivity {
     private GeocodeSearch.OnGeocodeSearchListener onGeocodeSearchListener = new GeocodeSearch.OnGeocodeSearchListener() {
         @Override
         public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-            System.out.println("onRegeocodeSearched : " + regeocodeResult.getRegeocodeAddress().getFormatAddress());
+//            System.out.println("onRegeocodeSearched : " + regeocodeResult.getRegeocodeAddress().getFormatAddress());
             // not used
             if (1000 == i) {
                 // 1000是反编码成功的错误码
