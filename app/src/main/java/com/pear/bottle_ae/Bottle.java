@@ -33,6 +33,7 @@ public class Bottle {
     public BottleLocation location;
     public int openers_count;
     public String created_at;
+    public User owner;
 
     // 监听标记点的点击事件时有用
     public Marker marker;
@@ -82,4 +83,5 @@ public class Bottle {
     public LatLng getLocation() {
         return new LatLng(location.latitude, location.longitude);
     }
+
 }
