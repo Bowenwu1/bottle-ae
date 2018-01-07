@@ -1,4 +1,4 @@
-package com.pear.bottle_ae.Activitiy;
+package com.pear.bottle_ae;
 
 import android.content.Intent;
 import android.location.Location;
@@ -21,18 +21,12 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
-import com.pear.bottle_ae.BottleActivity;
-import com.pear.bottle_ae.Factory;
 import com.pear.bottle_ae.Model.User;
 import com.pear.bottle_ae.Adapter.MyPagerAdapter;
-import com.pear.bottle_ae.R;
-import com.pear.bottle_ae.ResponseUser;
-import com.pear.bottle_ae.Services;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -60,9 +54,9 @@ public class MainActivity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
+        SetViewPager();
         CreatePersonal();
         CreateMap(savedInstanceState);
-        SetViewPager();
     }
     private void SetViewPager() {
         LayoutInflater inflater = getLayoutInflater();
@@ -80,9 +74,6 @@ public class MainActivity1 extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.personal_page:
                         viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.bottle:
-                        viewPager.setCurrentItem(1);
                         break;
                     case R.id.home_page:
                         viewPager.setCurrentItem(2);

@@ -1,4 +1,4 @@
-package com.pear.bottle_ae.Activitiy;
+package com.pear.bottle_ae;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

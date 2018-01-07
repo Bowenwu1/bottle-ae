@@ -1,4 +1,4 @@
-package com.pear.bottle_ae.Activitiy;
+package com.pear.bottle_ae;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,11 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.pear.bottle_ae.Factory;
-import com.pear.bottle_ae.Model.User;
-import com.pear.bottle_ae.R;
-import com.pear.bottle_ae.RegisterUser;
-import com.pear.bottle_ae.Services;
 
 import java.util.ArrayList;
 import java.util.HashMap;

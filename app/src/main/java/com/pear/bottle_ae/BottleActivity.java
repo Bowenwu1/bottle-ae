@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pear.bottle_ae.Activitiy.DetailActivity;
 import com.pear.bottle_ae.Adapter.CommonAdapter;
 import com.pear.bottle_ae.Adapter.ViewHolder;
 import com.pear.bottle_ae.Model.Bottle;

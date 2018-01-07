@@ -1,4 +1,4 @@
-package com.pear.bottle_ae.Activitiy;
+package com.pear.bottle_ae;
 
 import android.content.Intent;
 import android.os.Bundle;

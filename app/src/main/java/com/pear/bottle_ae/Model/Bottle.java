@@ -4,11 +4,8 @@ import android.location.Location;
 
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
-import com.pear.bottle_ae.Activitiy.MainActivity1;
-import com.pear.bottle_ae.MapActivity;
+import com.pear.bottle_ae.MainActivity1;
 import com.pear.bottle_ae.R;
-
-import java.io.Serializable;
 
 /**
  * Created by wubowen on 2018/1/4.
