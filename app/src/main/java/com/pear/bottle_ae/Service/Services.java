@@ -1,6 +1,8 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Service;
 
-import com.pear.bottle_ae.Model.User;
+import com.pear.bottle_ae.Model.ResponseBottle;
+import com.pear.bottle_ae.Model.ResponseBottlesList;
+import com.pear.bottle_ae.Model.ResponseUser;
 
 import java.util.Map;
 

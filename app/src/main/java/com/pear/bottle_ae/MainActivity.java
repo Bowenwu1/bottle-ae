@@ -1,8 +1,14 @@
 package com.pear.bottle_ae;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +24,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.pear.bottle_ae.Model.RegisterUser;
+import com.pear.bottle_ae.Model.ResponseUser;
+import com.pear.bottle_ae.Service.Factory;
+import com.pear.bottle_ae.Service.Services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -53,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         load_button.setOnClickListener(loadOnclickListener(services));
         register_button.setOnClickListener(registerOnclickListener(services));
 
-
+        checkAndApplyNecessaryPermission(MainActivity.this);
     }
     public void init() {
         view_load = layoutInflater.inflate(R.layout.load,null);
@@ -229,5 +240,72 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+
+    /**
+     * Added by Bowen Wu in 2018/01/07
+     * Aim to check permission needed by our App
+     */
+    public static void checkAndApplyNecessaryPermission(Activity activity) {
+        String[] permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                            Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE,
+                                            Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION};
+        List<String> permissionsNeedToApply = new ArrayList<>();
+        for (int i = 0; i < permissions.length; ++i) {
+            if (ActivityCompat.checkSelfPermission(activity, permissions[i]) == PackageManager.PERMISSION_DENIED) {
+                permissionsNeedToApply.add(permissions[i]);
+            }
+        }
+        // 申请权限
+        try {
+            String[] arrayPermissions = new String[permissionsNeedToApply.size()];
+            permissionsNeedToApply.toArray(arrayPermissions);
+            ActivityCompat.requestPermissions(activity, arrayPermissions, 1);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 权限回调出现了诡异的问题，填坑
+     * @return 是否包含所有的必要权限
+     */
+    public static boolean whetherHaveAllNecessaryPermission(Activity activity) {
+        String[] permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION};
+        for (int i = 0; i < permissions.length; ++i) {
+            if (ActivityCompat.checkSelfPermission(activity, permissions[i]) == PackageManager.PERMISSION_DENIED) {
+                return false;
+            }
+        }
+        return true;
+    }
+    @Override
+    public void onRequestPermissionsResult (int requestCode,
+                                            String[] permissions,
+                                            int[] grantResults) {
+        if (whetherHaveAllNecessaryPermission(MainActivity.this) == false) {
+                // 一些权限没有获得，弹出对话框，退出或者重新申请权限
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.fail_to_get_permission);
+                builder.setMessage(R.string.no_permission_handle);
+                builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // 重新请求权限
+                        MainActivity.checkAndApplyNecessaryPermission(MainActivity.this);
+                    }
+                });
+                builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // 退出应用
+                        System.exit(0);
+                    }
+                });
+                builder.show();
+
+            }
+        }
 }
 

@@ -1,7 +1,4 @@
-package com.pear.bottle_ae;
-
-import com.pear.bottle_ae.Model.Bottle;
-import com.pear.bottle_ae.Model.BottleLocation;
+package com.pear.bottle_ae.Model;
 
 import java.util.List;
 
@@ -14,9 +11,9 @@ public class ResponseBottlesList {
     public String msg;
 
     public static class Data {
-        BottleLocation centerLocation;
-        BottleLocation spanLocation;
-        List<Bottle> bottles;
+        public BottleLocation centerLocation;
+        public BottleLocation spanLocation;
+        public List<Bottle> bottles;
     }
 
     public ResponseBottlesList.Data data;
