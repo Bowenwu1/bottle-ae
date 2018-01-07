@@ -38,6 +38,9 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import com.google.gson.Gson;
+import com.pear.bottle_ae.Model.ResponseBottle;
+import com.pear.bottle_ae.Model.ResponseBottlesList;
+import com.pear.bottle_ae.Service.Factory;
 
 import java.util.HashMap;
 import java.util.List;

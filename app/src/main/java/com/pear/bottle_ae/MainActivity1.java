@@ -21,8 +21,11 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.pear.bottle_ae.Model.ResponseUser;
 import com.pear.bottle_ae.Model.User;
 import com.pear.bottle_ae.Adapter.MyPagerAdapter;
+import com.pear.bottle_ae.Service.Factory;
+import com.pear.bottle_ae.Service.Services;
 
 import java.util.ArrayList;
 import java.util.List;

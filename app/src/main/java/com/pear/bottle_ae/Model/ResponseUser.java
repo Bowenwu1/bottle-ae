@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Model;
 
 import com.pear.bottle_ae.Model.User;
 

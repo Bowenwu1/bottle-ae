@@ -1,4 +1,4 @@
-package com.pear.bottle_ae;
+package com.pear.bottle_ae.Model;
 
 /**
  * Created by wubowen on 2018/1/4.

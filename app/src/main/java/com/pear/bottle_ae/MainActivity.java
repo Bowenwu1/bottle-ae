@@ -18,6 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.pear.bottle_ae.Model.RegisterUser;
+import com.pear.bottle_ae.Model.ResponseUser;
+import com.pear.bottle_ae.Service.Factory;
+import com.pear.bottle_ae.Service.Services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
