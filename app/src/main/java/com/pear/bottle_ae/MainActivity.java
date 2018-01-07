@@ -248,8 +248,7 @@ public class MainActivity extends AppCompatActivity {
     public static void checkAndApplyNecessaryPermission(Activity activity) {
         String[] permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                             Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE,
-                                            Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION,
-                                            Manifest.permission.ACCESS_FINE_LOCATION};
+                                            Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION};
         List<String> permissionsNeedToApply = new ArrayList<>();
         for (int i = 0; i < permissions.length; ++i) {
             if (ActivityCompat.checkSelfPermission(activity, permissions[i]) == PackageManager.PERMISSION_DENIED) {
@@ -273,8 +272,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean whetherHaveAllNecessaryPermission(Activity activity) {
         String[] permissions = new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION};
+                Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION};
         for (int i = 0; i < permissions.length; ++i) {
             if (ActivityCompat.checkSelfPermission(activity, permissions[i]) == PackageManager.PERMISSION_DENIED) {
                 return false;
@@ -286,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult (int requestCode,
                                             String[] permissions,
                                             int[] grantResults) {
-        if (whetherHaveAllNecessaryPermission(MainActivity.this)) {
+        if (whetherHaveAllNecessaryPermission(MainActivity.this) == false) {
                 // 一些权限没有获得，弹出对话框，退出或者重新申请权限
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.fail_to_get_permission);
