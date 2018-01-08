@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 
 /**
  * Created by Young on 2018/1/6.
+ * Edited by jiayin on 2018/1/8
  */
 
 public class DetailActivity  extends AppCompatActivity {
@@ -39,16 +40,26 @@ public class DetailActivity  extends AppCompatActivity {
         data = (HashMap<String, Object>) getIntent().getExtras().get("data");
         if (data != null) {
             detail_content.setText(data.get("content").toString());
-            switch ((int) data.get("type")) {
-                case 0:
-                    detail_img.setImageResource(R.drawable.bottle_small_blue);
-                case 1:
-                    detail_img.setImageResource(R.drawable.bottle_small_green);
-                case 2:
-                    detail_img.setImageResource(R.drawable.bottle_small_yellow);
-                default:
-                    detail_img.setImageResource(R.drawable.bottle_small_gray);
+            int type = (int) data.get("type");
+            if (type == 0) {
+                detail_img.setImageResource(R.drawable.bottle_small_blue);
+            } else if (type == 1) {
+                detail_img.setImageResource(R.drawable.bottle_small_green);
+            } else if (type == 2) {
+                detail_img.setImageResource(R.drawable.bottle_small_yellow);
+            } else  {
+                detail_img.setImageResource(R.drawable.bottle_small_gray);
             }
+//            switch ((int) data.get("type")) {
+//                case 0:
+//                    detail_img.setImageResource(R.drawable.bottle_small_blue);
+//                case 1:
+//                    detail_img.setImageResource(R.drawable.bottle_small_green);
+//                case 2:
+//                    detail_img.setImageResource(R.drawable.bottle_small_yellow);
+//                default:
+//                    detail_img.setImageResource(R.drawable.bottle_small_gray);
+//            }
             detail_time.setText(data.get("time").toString());
             BottleLocation bottleLocation = (BottleLocation) data.get("location");
             detail_name.setText(bottleLocation.formatted_address);

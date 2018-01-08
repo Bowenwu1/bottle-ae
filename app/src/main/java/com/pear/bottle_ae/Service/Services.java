@@ -16,7 +16,7 @@ import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
- * Created by hp on 2017/12/25.
+ * Created by jiayin on 2017/12/25.
  */
 
 public interface Services {

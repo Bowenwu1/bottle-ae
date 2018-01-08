@@ -19,9 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pear.bottle_ae.Model.RegisterUser;
@@ -66,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
 
         checkAndApplyNecessaryPermission(MainActivity.this);
     }
+    /*
+    初始化所有变量以及页面
+    Created by jiayin on 2017/12/26.
+     */
     public void init() {
         view_load = layoutInflater.inflate(R.layout.load,null);
         view_register = layoutInflater.inflate(R.layout.register , null);
@@ -90,7 +96,10 @@ public class MainActivity extends AppCompatActivity {
         load_button = view_load.findViewById(R.id.load);
         register_button = view_register.findViewById(R.id.register);
     }
-
+    /*
+        用于适配viewPager 实现滑动
+        Created by jiayin on 2017/12/26.
+         */
     class MySimpleAdapter extends PagerAdapter {
         private ArrayList<View> arrayList_view = new ArrayList<View>();
         MySimpleAdapter(ArrayList<View> list) {
@@ -127,9 +136,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int buttonId = radioGroup.getCheckedRadioButtonId();
-                String username = register_name.getText().toString()+"";
+                final String username = register_name.getText().toString()+"";
                 String nickname = register_nickname.getText().toString();
-                String pwd = register_pwd.getText().toString();
+                final String pwd = register_pwd.getText().toString();
                 String con_pwd = register_con_pwd.getText().toString();
                 if (username.isEmpty()) {
                     register_name.setError("用户名不能为空");
@@ -171,7 +180,40 @@ public class MainActivity extends AppCompatActivity {
                                 .subscribe(new Subscriber<ResponseUser>() {
                                     @Override
                                     public void onCompleted() {
+                                        final ProgressBar progressBar = findViewById(R.id.progressbar);
+                                        tabLayout.setVisibility(View.GONE);
+                                        pager.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        Map<String , String > map = new HashMap<>();
+                                        map.put("username" , username);
+                                        map.put("password" , pwd);
+                                        Gson gson=new Gson();
+                                        String strEntity = gson.toJson(map);
+                                        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+                                        services.loadUser(body)
+                                                .subscribeOn(Schedulers.newThread())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribe(new Subscriber<ResponseUser>() {
+                                                    @Override
+                                                    public void onCompleted() {
+                                                        finish();
+                                                    }
 
+                                                    @Override
+                                                    public void onError(Throwable e) {
+                                                        HttpException exception = (HttpException) e;
+                                                        if (exception.response().code() == 403) {
+                                                            load_name.setError("用户名或密码错误");
+                                                            Log.i("errorcode" , "403");
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onNext(ResponseUser user) {
+                                                        startActivity(new Intent(MainActivity.this,MainActivity1.class));
+                                                    }
+                                                });
+                                        //Toast.makeText(MainActivity.this , "注册成功，请切换至登陆页面登录" , Toast.LENGTH_LONG).show();
                                     }
 
                                     @Override
@@ -206,6 +248,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if (pwd.isEmpty()) {
                     load_pwd.setError("请输入密码");
                 } else {
+                    final ProgressBar progressBar = findViewById(R.id.progressbar);
+                    tabLayout.setVisibility(View.GONE);
+                    pager.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
                     Map<String , String > map = new HashMap<>();
                     map.put("username" , name);
                     map.put("password" , pwd);
@@ -218,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                             .subscribe(new Subscriber<ResponseUser>() {
                                 @Override
                                 public void onCompleted() {
-
+                                    finish();
                                 }
 
                                 @Override
