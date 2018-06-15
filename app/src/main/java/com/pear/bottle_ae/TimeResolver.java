@@ -3,8 +3,6 @@ package com.pear.bottle_ae;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import java.util.concurrent.ExecutionException;
-
 /**
  * Created by zhuojun on 2018/06/12.
  */
@@ -12,8 +10,10 @@ import java.util.concurrent.ExecutionException;
 public class TimeResolver {
     public static String getRelativeTime(String time) {
         String relativeTime = "";
+        // set format
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Date date = null;
+        // parse time string
         try {
             date = pattern.parse(time);
             System.out.print(date.getTime());
@@ -26,6 +26,7 @@ public class TimeResolver {
         int days = (int) (passTime/(1000 * 60 * 60 * 24));
         int mins = (int) (passTime/(1000 * 60) - (days * 60 * 24));
 
+        // different display mode
         if (days > 0) {
             if (days >= 365) {
                 relativeTime = Integer.toString(days/365) + "年前";
