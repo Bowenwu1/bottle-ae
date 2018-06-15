@@ -12,7 +12,7 @@ import com.pear.bottle_ae.Adapter.CommonAdapter;
 import com.pear.bottle_ae.Adapter.ViewHolder;
 import com.pear.bottle_ae.Model.BottleLocation;
 import com.pear.bottle_ae.Model.Opener;
-import com.pear.bottle_ae.Model.ResponseReadersList;
+import com.pear.bottle_ae.Model.ResponseOpenersList;
 import com.pear.bottle_ae.Service.Factory;
 
 import java.util.ArrayList;
@@ -25,6 +25,11 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+
+/**
+ * Created by zhuojun on 2018/6/12.
+ */
+
 public class OwnerDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CommonAdapter commonAdapter;
@@ -34,7 +39,7 @@ public class OwnerDetailActivity extends AppCompatActivity {
     private HashMap<String, Object> data;
     private List<LinkedHashMap<String, Object>> openers_data;
 
-    public ResponseReadersList responseReadersList;
+    public ResponseOpenersList responseReadersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,7 @@ public class OwnerDetailActivity extends AppCompatActivity {
             } else  {
                 detail_img.setImageResource(R.drawable.bottle_small_gray);
             }
-            detail_time.setText(data.get("time").toString());
+            detail_time.setText(TimeResolver.getRelativeTime(data.get("time").toString()));
             BottleLocation bottleLocation = (BottleLocation) data.get("location");
             detail_name.setText(bottleLocation.formatted_address);
         }
@@ -73,7 +78,7 @@ public class OwnerDetailActivity extends AppCompatActivity {
         openers_data = new ArrayList<>();
         Factory.getServices(OwnerDetailActivity.this).getBottleOpeners(bottle_id).subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<ResponseReadersList>() {
+            .subscribe(new Subscriber<ResponseOpenersList>() {
                 @Override
                 public void onCompleted() {
                     Log.i("Service","ok");
@@ -85,7 +90,7 @@ public class OwnerDetailActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onNext(ResponseReadersList usersList) {
+                public void onNext(ResponseOpenersList usersList) {
                     responseReadersList = usersList;
                     List<Opener> openers = responseReadersList.data.openers;
                     for (int i = 0; i < openers.size(); i++) {
@@ -93,7 +98,7 @@ public class OwnerDetailActivity extends AppCompatActivity {
                         LinkedHashMap<String, Object> temp = new LinkedHashMap<>();
                         temp.put("nickname", opener.getNickname());
                         temp.put("gender", opener.getGender());
-                        temp.put("time", opener.getOpenTime());
+                        temp.put("time", TimeResolver.getRelativeTime(opener.getOpenTime()));
                         openers_data.add(temp);
                     }
                     commonAdapter.notifyDataSetChanged();

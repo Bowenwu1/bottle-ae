@@ -3,7 +3,7 @@ package com.pear.bottle_ae.Service;
 import com.pear.bottle_ae.Model.ResponseBottle;
 import com.pear.bottle_ae.Model.ResponseBottlesList;
 import com.pear.bottle_ae.Model.ResponseUser;
-import com.pear.bottle_ae.Model.ResponseReadersList;
+import com.pear.bottle_ae.Model.ResponseOpenersList;
 
 import java.util.Map;
 
@@ -68,5 +68,5 @@ public interface Services {
      */
     @Headers({"Content-type:application/json","Accept: application/json"})
     @GET("bottles/{bottle_id}/openers")
-    Observable<ResponseReadersList> getBottleOpeners(@Path("bottle_id") int bottle_id);
+    Observable<ResponseOpenersList> getBottleOpeners(@Path("bottle_id") int bottle_id);
 }

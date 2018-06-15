@@ -106,7 +106,7 @@ public class BottleActivity extends AppCompatActivity {
                 TextView time = holder.getView(R.id.item_time);
                 TextView content = holder.getView(R.id.item_content);
                 ImageView pic = holder.getView(R.id.item_pic);
-                time.setText(s.get("time").toString());
+                time.setText(TimeResolver.getRelativeTime(s.get("time").toString()));
                 content.setText(s.get("content").toString());
                 if (!isPick) {
                     TextView read = holder.getView(R.id.item_read);

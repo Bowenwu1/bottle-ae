@@ -6,7 +6,7 @@ import java.util.List;
  * Created by zhuojun on 2018/6/12.
  */
 
-public class ResponseReadersList {
+public class ResponseOpenersList {
     public String status;
     public String msg;
 
@@ -15,5 +15,5 @@ public class ResponseReadersList {
         public List<Opener> openers;
     }
 
-    public ResponseReadersList.Data data;
+    public ResponseOpenersList.Data data;
 }

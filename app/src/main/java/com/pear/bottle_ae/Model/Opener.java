@@ -1,5 +1,9 @@
 package com.pear.bottle_ae.Model;
 
+/**
+ * Created by zhuojun on 2018/06/12.
+ */
+
 public class Opener {
     private int user_id;
     private String username;
