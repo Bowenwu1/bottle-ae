@@ -60,7 +60,7 @@ public class DetailActivity  extends AppCompatActivity {
 //                default:
 //                    detail_img.setImageResource(R.drawable.bottle_small_gray);
 //            }
-            detail_time.setText(data.get("time").toString());
+            detail_time.setText(TimeResolver.getRelativeTime(data.get("time").toString()));
             BottleLocation bottleLocation = (BottleLocation) data.get("location");
             detail_name.setText(bottleLocation.formatted_address);
         }

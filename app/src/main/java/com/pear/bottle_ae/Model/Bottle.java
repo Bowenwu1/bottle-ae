@@ -38,7 +38,8 @@ public class Bottle {
     public BottleLocation location;
     public int openers_count = 0;
     public String created_at;
-    public User onwer;
+    public User owner;
+    public boolean is_owner;
 
     // 监听标记点的点击事件时有用
     public Marker marker;
@@ -59,7 +60,9 @@ public class Bottle {
                 this.style = STYLE_NORMAL;
         }
         if (owner == null) {
-            owner = MainActivity1.owner;
+            this.owner = MainActivity1.owner;
+        } else {
+            this.owner = owner;
         }
         location = new BottleLocation(latitude, longitude, formatted_address);
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/item_pic"
+        android:layout_margin="20dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/man_in_bottle_content" />
+    <TextView
+        android:id="@+id/item_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toRightOf="@id/item_pic"
+        app:layout_constraintTop_toTopOf="@id/item_pic"
+        app:layout_constraintBottom_toTopOf="@id/item_gender"
+        android:textColor="#000000"
+        android:text="昵称"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+    <TextView
+        android:id="@+id/item_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/item_nickname"
+        app:layout_constraintTop_toBottomOf="@id/item_nickname"
+        app:layout_constraintBottom_toTopOf="@id/item_time"
+        android:textColor="#000000"
+        android:text="性别"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/item_gender"
+        app:layout_constraintTop_toBottomOf="@id/item_gender"
+        android:text="打开时间"
+        app:layout_constraintBottom_toBottomOf="@id/item_pic"/>
+
+</android.support.constraint.ConstraintLayout>

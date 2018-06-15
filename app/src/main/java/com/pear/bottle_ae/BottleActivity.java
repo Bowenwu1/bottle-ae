@@ -28,6 +28,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by Young on 2018/1/4.
+ * Edited by zhuojun on 2018/6/12.
  */
 
 public class BottleActivity extends AppCompatActivity {
@@ -105,7 +106,7 @@ public class BottleActivity extends AppCompatActivity {
                 TextView time = holder.getView(R.id.item_time);
                 TextView content = holder.getView(R.id.item_content);
                 ImageView pic = holder.getView(R.id.item_pic);
-                time.setText(s.get("time").toString());
+                time.setText(TimeResolver.getRelativeTime(s.get("time").toString()));
                 content.setText(s.get("content").toString());
                 if (!isPick) {
                     TextView read = holder.getView(R.id.item_read);
@@ -128,7 +129,12 @@ public class BottleActivity extends AppCompatActivity {
         commonAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Intent intent = new Intent(BottleActivity.this, DetailActivity.class);
+                Intent intent;
+                if (isPick) {
+                    intent = new Intent(BottleActivity.this, DetailActivity.class);
+                } else {
+                    intent = new Intent(BottleActivity.this, OwnerDetailActivity.class);
+                }
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", data.get(position));
                 intent.putExtras(bundle);
