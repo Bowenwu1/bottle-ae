@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 
 public class TimeResolver {
     public static String getRelativeTime(String time) {
-        String relativeTime = "";
+        String relativeTime;
         // set format
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         TimeZone timeZone = TimeZone.getTimeZone("GMT+00:00");
