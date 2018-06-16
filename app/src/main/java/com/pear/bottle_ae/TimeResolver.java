@@ -2,6 +2,8 @@ package com.pear.bottle_ae;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
+import java.util.GregorianCalendar;
 
 /**
  * Created by zhuojun on 2018/06/12.
@@ -12,6 +14,8 @@ public class TimeResolver {
         String relativeTime = "";
         // set format
         SimpleDateFormat pattern = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+00:00");
+        pattern.setTimeZone(timeZone);
         Date date = null;
         // parse time string
         try {
@@ -21,7 +25,7 @@ public class TimeResolver {
             System.out.print(e);
         }
 
-        long passTime =  (new Date()).getTime() - date.getTime();
+        long passTime =  (new Date().getTime() - date.getTime());
 
         int days = (int) (passTime/(1000 * 60 * 60 * 24));
         int mins = (int) (passTime/(1000 * 60) - (days * 60 * 24));
