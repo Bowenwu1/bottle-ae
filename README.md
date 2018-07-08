@@ -27,6 +27,7 @@
   
 
 * [软件设计文档](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/SD.pdf)
+  [md format](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/SD.md) 
 
   
 
