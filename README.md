@@ -27,6 +27,7 @@
   
 
 * [软件设计文档](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/SD.pdf)
+
   [md format](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/SD.md) 
 
   
@@ -40,7 +41,7 @@
 * [安装部署说明](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E8%AF%B4%E6%98%8E.md)
   
 
-* [小组分工及贡献率说明](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/%E5%B0%8F%E7%BB%84%E5%88%86%E5%B7%A5%E4%B8%8E%E8%B4%A1%E7%8C%AE%E7%8E%87%E8%AF%B4%E6%98%8E.md)
+* [小组分工及贡献率说明](https://github.com/Bowenwu1/bottle-ae/blob/master/doc/%E5%B0%8F%E7%BB%84%E5%88%86%E5%B7%A5%E4%B8%8E%E8%B4%A1%E7%8C%AE%E7%8E%87%E8%AF%B4%E6%98%8E.md)
 
 
 
